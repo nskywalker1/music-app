@@ -18,7 +18,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-	'users',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -36,7 +36,7 @@ ROOT_URLCONF = "musicapp.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / 'templates'],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -54,11 +54,11 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": os.getenv('POSTGRES_DB'),
-		"HOST": os.getenv('POSTGRES_HOST', 'localhost'),
-		"PORT": os.getenv('POSTGRES_PORT', '5432'),
-		"USER": os.getenv('POSTGRES_USER', 'postgres'),
-		"PASSWORD": os.getenv('POSTGRES_PASS'),
-		"ATOMIC_REQUEST": True
+        "HOST": os.getenv('POSTGRES_HOST', 'localhost'),
+        "PORT": os.getenv('POSTGRES_PORT', '5432'),
+        "USER": os.getenv('POSTGRES_USER', 'postgres'),
+        "PASSWORD": os.getenv('POSTGRES_PASS'),
+        "ATOMIC_REQUEST": True
     }
 }
 
@@ -85,8 +85,10 @@ USE_I18N = True
 
 USE_TZ = True
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+TAILWIND_APP_NAME = "theme"

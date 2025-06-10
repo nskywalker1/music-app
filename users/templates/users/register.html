@@ -1,0 +1,121 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'css/users/css/style.css' %}">
+    <title>Document</title>
+</head>
+<body>
+<div class="main-content">
+    <div class="auth-container">
+        <div class="auth-header">
+            <h1>Welcome to Spotify</h1>
+            <p>Log in or create an account to start your music journey.</p>
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="role" id="role" value="">
+            <div class="user-type-selection">
+                {{ form.role.errors }}
+                {% for value, label in form.role.field.choices %}
+                    <button type="button" class="user-type-btn" onclick="selectUserType('{{ value }}')"
+                            id="{{ value }}-btn">
+                        {{ label }}
+                    </button>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                {{ form.username.errors }}
+                <label for="register-username">{{ form.username.label }}</label>
+                {{ form.username }}
+            </div>
+            <div class="form-group">
+                {{ form.email.errors }}
+                <label for="register-email">{{ form.email.label }}</label>
+                {{ form.email }}
+            </div>
+            <div class="form-group">
+                {{ form.password1.errors }}
+                <label for="register-password1">{{ form.password1.label }}</label>
+                {{ form.password1 }}
+            </div>
+            <div class="form-group">
+                {{ form.password2.errors }}
+                <label for="register-password2">{{ form.password2.label }}</label>
+                {{ form.password2 }}
+            </div>
+            <div id="artist-fields" class="artist-fields">
+                <div class="form-group">
+                    {{ form.bio.errors }}
+                    <label for="artist-bio">{{ form.bio.label }}</label>
+                    {{ form.bio }}
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Sign Up</button>
+            <div class="toggle-link">
+                Already have an account? <a href="#" onclick="showForm('login')">Log in here</a>.
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    let selectedUserType = 'User';
+
+    function showForm(formType) {
+        const loginForm = document.getElementById('login-form');
+        const registerForm = document.getElementById('register-form');
+        const loginBtn = document.querySelector('.toggle-btn:nth-child(1)');
+        const registerBtn = document.querySelector('.toggle-btn:nth-child(2)');
+
+        if (formType === 'login') {
+            loginForm.classList.add('active');
+            registerForm.classList.remove('active');
+            loginBtn.classList.add('active');
+            registerBtn.classList.remove('active');
+        } else {
+            loginForm.classList.remove('active');
+            registerForm.classList.add('active');
+            loginBtn.classList.remove('active');
+            registerBtn.classList.add('active');
+        }
+    }
+
+    function selectUserType(type) {
+        document.getElementById('role').value = type
+        selectedUserType = type;
+        const buttons = document.querySelectorAll('.user-type-btn');
+        buttons.forEach(btn => btn.classList.remove('selected'));
+
+        const selectedBtn = document.getElementById(`${type}-btn`);
+        if (selectedBtn) {
+            selectedBtn.classList.add('selected');
+        }
+
+        const artistFields = document.getElementById('artist-fields');
+        if (artistFields) {
+            if (type === 'artist') {
+                artistFields.classList.add('show');
+            } else {
+                artistFields.classList.remove('show');
+            }
+        }
+    }
+
+    function handleLogin(event) {
+        event.preventDefault();
+        const email = document.getElementById('login-email').value;
+        const password = document.getElementById('login-password').value;
+        alert(`Logging in with Email: ${email}`);
+        // Add actual login logic here
+    }
+
+    selectUserType('listener');
+</script>
+</body>
+</html>
