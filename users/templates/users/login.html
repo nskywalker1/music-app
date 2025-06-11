@@ -1,14 +1,23 @@
-<form>
-    <div class="form-group">
-        <label for="login-email">Email</label>
-        <input type="email" id="login-email" placeholder="Enter your email" required>
+{% extends 'users/base.html' %}
+{% block content %}
+    <div class="auth-header">
+        <h1>Welcome to Spotify</h1>
+        <p>Log in your account.</p>
     </div>
-    <div class="form-group">
-        <label for="login-password">Password</label>
-        <input type="password" id="login-password" placeholder="Enter your password" required>
-    </div>
-    <button type="submit" class="submit-btn">Log In</button>
-    <div class="toggle-link">
-        Don't have an account? <a href="#" onclick="showForm('register')">Sign up here</a>.
-    </div>
-</form>
+    <form method="post" action="{% url 'users:login' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="login-email">{{ form.email.label }}</label>
+            {{ form.email }}
+        </div>
+        <div class="form-group">
+            <label for="login-password">{{ form.password.label }}</label>
+            {{ form.password }}
+        </div>
+        <button type="submit" class="submit-btn">Log In</button>
+        <div class="toggle-link">
+            Don't have an account? <a href="{% url 'users:register' %}">Sign up here</a>.
+        </div>
+    </form>
+{% endblock %}
+

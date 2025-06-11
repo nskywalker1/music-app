@@ -13,7 +13,7 @@ class UserRegistrationForm(UserCreationForm):
 
     class Meta:
         model = CustomUser
-        fields = ('email', 'username', 'avatar', 'bio', 'password1', 'password2')
+        fields = ('email', 'username', 'avatar', 'bio', 'password1', 'password2', 'role')
 
     def clean_password1(self):
         password1 = self.cleaned_data.get('password1')
@@ -29,18 +29,16 @@ class UserRegistrationForm(UserCreationForm):
         return password2
 
 
-class UserLoginForm(AuthenticationForm):
+class UserLoginForm(forms.Form):
     email = forms.EmailField()
-    password = forms.CharField(widget=forms.Textarea)
+    password = forms.CharField(widget=forms.PasswordInput)
 
     def clean(self):
-        email = self.cleaned_data('email')
-        password = self.cleaned_data('password')
+        email = self.cleaned_data.get('email')
+        password = self.cleaned_data.get('password')
 
         if email and password:
-            self.user_cache = authenticate(self.request, email=email, password=password)
-        if self.user_cache is None:
-            raise forms.ValidationError("Invalid email or password")
-        elif not self.user_cache.is_active:
-            raise forms.ValidationError("This account is inactive.")
-        return self.cleaned_data
+            user = authenticate(email=email, password=password)
+            if user is None:
+                raise forms.ValidationError('Invalid email or password')
+            return self.cleaned_data
