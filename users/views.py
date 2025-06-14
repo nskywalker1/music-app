@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import CustomUser, ArtistProfile
 from .forms import UserRegistrationForm, UserLoginForm
 from django.contrib.auth import login, authenticate, logout
@@ -34,3 +34,24 @@ def user_login(request):
     else:
         form = UserLoginForm()
     return render(request, 'users/login.html', {'form': form})
+
+
+def profile_view(request, username=None):
+    if username:
+        profile = get_object_or_404(CustomUser, username=username)
+    else:
+        if not request.user.is_authenticated:
+            return redirect('users:login')
+        profile = request.user
+    if profile.role == 'artist':
+        template = 'users/profile_artist.html'
+    else:
+        template = 'users/profile.html'
+    return render(request, template, {
+        'profile': profile,
+    })
+
+
+def user_logout(request):
+    logout(request)
+    return redirect('/')

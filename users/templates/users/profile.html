@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="flex-1 overflow-auto">
+        <div id="profile-section">
+            <!-- Profile header -->
+            <div class="relative bg-gradient-to-b from-zinc-700 to-black p-6 flex items-end gap-6">
+                <div class="relative w-48 h-48 rounded-full overflow-hidden shadow-lg">
+                    <img src="https://via.placeholder.com/200x200" alt="John Doe"
+                         class="w-full h-full object-cover">
+                </div>
+                <div class="flex flex-col justify-end py-6">
+                    <p class="text-sm font-medium">PROFILE</p>
+                    <h1 class="text-5xl font-bold mb-4">{{ profile.username}}</h1>
+                    <div class="flex items-center text-sm text-zinc-400 gap-4">
+                        <p>8 Public Playlists</p>
+                        <span>•</span>
+                        <p>1,234 Followers</p>
+                        <span>•</span>
+                        <p>567 Following</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile content -->
+            <div class="p-6 bg-gradient-to-b from-zinc-900/50 to-black">
+                <!-- Tabs -->
+                <div class="mb-6">
+                    <div class="flex space-x-1 bg-zinc-900 rounded-lg p-1 max-w-md">
+                        <button class="tab-button active flex-1 py-2 px-4 text-sm font-medium rounded-md"
+                                data-tab="playlists">Playlists
+                        </button>
+                        <button class="tab-button flex-1 py-2 px-4 text-sm font-medium rounded-md"
+                                data-tab="artists">Artists
+                        </button>
+                        <button class="tab-button flex-1 py-2 px-4 text-sm font-medium rounded-md" data-tab="liked">
+                            Liked Songs
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tab content -->
+                <div id="tab-content">
+                    <!-- Playlists tab -->
+                    <div id="playlists-tab" class="tab-content">
+                        <div class="mb-4 flex items-center justify-between">
+                            <h2 class="text-2xl font-bold">Your Playlists</h2>
+                            <button class="bg-green-500 hover:bg-green-600 text-black px-4 py-2 rounded-full font-medium">
+                                Create Playlist
+                            </button>
+                        </div>
+                        <div id="user-playlists"
+                             class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4"></div>
+                    </div>
+
+                    <!-- Artists tab -->
+                    <div id="artists-tab" class="tab-content hidden">
+                        <div class="mb-4">
+                            <h2 class="text-2xl font-bold">Following</h2>
+                        </div>
+                        <div id="followed-artists"
+                             class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4"></div>
+                    </div>
+
+                    <!-- Liked songs tab -->
+                    <div id="liked-tab" class="tab-content hidden">
+                        <div class="mb-4 flex items-center gap-4">
+                            <div class="relative w-16 h-16 bg-gradient-to-br from-purple-700 to-blue-300 rounded flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="white" stroke="white" stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h2 class="text-2xl font-bold">Liked Songs</h2>
+                                <p class="text-zinc-400">6 songs</p>
+                            </div>
+                        </div>
+                        <div id="liked-songs" class="space-y-1"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
