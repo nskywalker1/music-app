@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
     <div class="flex-1 overflow-auto">
         <div id="profile-section">
@@ -10,18 +11,12 @@
                 </div>
                 <div class="flex flex-col justify-end py-6">
                     <p class="text-sm font-medium">PROFILE</p>
-                    <h1 class="text-5xl font-bold mb-4">{{ profile.username}}</h1>
+                    <h1 class="text-5xl font-bold mb-4">{{ profile.username }}</h1>
                     <div class="flex items-center text-sm text-zinc-400 gap-4">
                         <p>8 Public Playlists</p>
-                        <span>•</span>
-                        <p>1,234 Followers</p>
-                        <span>•</span>
-                        <p>567 Following</p>
                     </div>
                 </div>
             </div>
-
-            <!-- Profile content -->
             <div class="p-6 bg-gradient-to-b from-zinc-900/50 to-black">
                 <!-- Tabs -->
                 <div class="mb-6">
@@ -31,9 +26,6 @@
                         </button>
                         <button class="tab-button flex-1 py-2 px-4 text-sm font-medium rounded-md"
                                 data-tab="artists">Artists
-                        </button>
-                        <button class="tab-button flex-1 py-2 px-4 text-sm font-medium rounded-md" data-tab="liked">
-                            Liked Songs
                         </button>
                     </div>
                 </div>
@@ -51,32 +43,15 @@
                         <div id="user-playlists"
                              class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4"></div>
                     </div>
-
-                    <!-- Artists tab -->
-                    <div id="artists-tab" class="tab-content hidden">
-                        <div class="mb-4">
-                            <h2 class="text-2xl font-bold">Following</h2>
+                </div>
+                <div class="album-horizontal-scroll" id="discography-content">
+                    <div class="album-card-horizontal" data-type="album">
+                        <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=160&h=160&fit=crop"
+                             alt="Future Nostalgia" class="album-cover-horizontal">
+                        <div class="album-info-horizontal">
+                            <div class="album-title-horizontal">MUSIC</div>
+                            <div class="album-details-horizontal">usern</div>
                         </div>
-                        <div id="followed-artists"
-                             class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4"></div>
-                    </div>
-
-                    <!-- Liked songs tab -->
-                    <div id="liked-tab" class="tab-content hidden">
-                        <div class="mb-4 flex items-center gap-4">
-                            <div class="relative w-16 h-16 bg-gradient-to-br from-purple-700 to-blue-300 rounded flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                     fill="white" stroke="white" stroke-width="2" stroke-linecap="round"
-                                     stroke-linejoin="round">
-                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <h2 class="text-2xl font-bold">Liked Songs</h2>
-                                <p class="text-zinc-400">6 songs</p>
-                            </div>
-                        </div>
-                        <div id="liked-songs" class="space-y-1"></div>
                     </div>
                 </div>
             </div>
